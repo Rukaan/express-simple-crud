@@ -1,0 +1,9 @@
+node_modules
+dist
+.local.vim
+.env
+docs
+.idea
+package-lock.json
+\uploads/
+messages.json
