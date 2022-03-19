@@ -41,6 +41,9 @@ export class App {
         app.use(helmet())
         app.use(this.winstonLogger())
 
+        app.get('/healthcheck', (req, res) => {
+            res.send('HEALTHY')
+        })
         app.use("/api/v1/test", this.testController.router)
 
         app.use(this.winstonErrorLogger());
