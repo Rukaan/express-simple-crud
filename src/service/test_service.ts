@@ -6,7 +6,6 @@ import Logger from "@instance/logger";
 @Service()
 export default class TestService {
 
-@Inject()
   @Inject()
   testRepository: TestRepository;
   @Inject()

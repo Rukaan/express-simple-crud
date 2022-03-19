@@ -15,6 +15,8 @@ import SequelizeInstance from "@instance/sequelize"
 import Models from "@model/index";
 // Controller
 import TestController from "@controller/test_controller";
+import QueueController from "@controller/queue_controller";
+import QueueService from "@service/queue_service";
 
 const port = process.env.PORT || 3000
 
@@ -27,6 +29,12 @@ export class App {
 
     @Inject()
     testController: TestController
+
+    @Inject()
+    queueController: QueueController
+
+    @Inject()
+    queueService: QueueService
 
     server: http.Server;
     _isShutingdown: boolean;
@@ -45,8 +53,10 @@ export class App {
             res.send('HEALTHY')
         })
         app.use("/api/v1/test", this.testController.router)
+        app.use("/api/v1/queue", this.queueController.router)
 
         app.use(this.winstonErrorLogger());
+        this.queueService.consumeQueue();
         this.server = app.listen(port);
         this.logger.info(`${serviceName} is listening on port ${port}`);
     }
